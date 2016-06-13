@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "496273212791",
+    "firebase_url": "https://bill-manager-9a836.firebaseio.com",
+    "project_id": "bill-manager-9a836",
+    "storage_bucket": "bill-manager-9a836.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496273212791:android:0eacc0658c384056",
+        "android_client_info": {
+          "package_name": "com.example.brianmote.billmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496273212791-pnk7aj1n0biil2s0bu5ktl0o9vlvfd6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVd9Foqdn_LeFJQOvJTdhOmlsbpePaA0s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
