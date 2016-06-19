@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -21,6 +22,7 @@ public class DBBillHelper implements DBHelper<Bill> {
     private DatabaseReference billDB = db.child(Constants.DB_BILL_REF);
     private DBCompleteListener dbCompleteListener;
     private DBGetDataListener<Bill> dbGetDataListener;
+    ArrayList<Bill> bills = new ArrayList<>();
 
     public DBBillHelper() {
 
@@ -33,6 +35,7 @@ public class DBBillHelper implements DBHelper<Bill> {
         String createdBy = DBUserHelper.getCurrentUser().getEmail();
         bill.setId(id);
         bill.setCreatedBy(createdBy);
+        bill.setMonthPaid(false);
         Map<String, Object> map = bill.toMap();
         billDB.child(id).updateChildren(map, new DatabaseReference.CompletionListener() {
             @Override
@@ -63,17 +66,25 @@ public class DBBillHelper implements DBHelper<Bill> {
     }
 
     @Override
-    public void getAll(final DBGetDataListener<Bill> dbGetDataListener) {
+    public ArrayList<Bill> getAll(final DBGetDataListener<Bill> dbGetDataListener) {
         this.dbGetDataListener = dbGetDataListener;
         billDB.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                int index = 0;
                 Bill bill = dataSnapshot.getValue(Bill.class);
+                if (bills.get(index) == null) {
+                    bills.add(index, bill);
+                } else {
+                    index++;
+                    bills.add(index, bill);
+                }
                 dbGetDataListener.onComplete(bill);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Bill bill = dataSnapshot.getValue(Bill.class);
 
             }
 
@@ -92,6 +103,31 @@ public class DBBillHelper implements DBHelper<Bill> {
 
             }
         });
+        return bills;
+    }
+
+    public void pay(final Bill bill, final DBCompleteListener dbCompleteListener) {
+        this.dbCompleteListener = dbCompleteListener;
+        billDB.child(bill.getId()).child("monthPaid").setValue(true,
+                new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError,
+                                   DatabaseReference databaseReference) {
+                dbCompleteListener.onComplete(databaseError, databaseReference);
+            }
+        });
+    }
+
+    public void removePay(final Bill bill, final DBCompleteListener dbCompleteListener) {
+        this.dbCompleteListener = dbCompleteListener;
+        billDB.child(bill.getId()).child("monthPaid").setValue(false,
+                new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError,
+                                           DatabaseReference databaseReference) {
+                        dbCompleteListener.onComplete(databaseError, databaseReference);
+                    }
+                });
     }
 
     private void removeListener(DatabaseReference databaseReference, ValueEventListener

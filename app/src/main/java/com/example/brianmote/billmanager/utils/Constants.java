@@ -24,5 +24,6 @@ public class Constants {
     public static final String BILL_ID = "id";
     public static final String BILL_AMOUNT = "amount";
     public static final String BILL_CREATED_BY = "createdBy";
+    public static final String BILL_PAID = "monthPaid";
 
 }

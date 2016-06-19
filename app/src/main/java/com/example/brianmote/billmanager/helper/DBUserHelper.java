@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -41,8 +42,8 @@ public class DBUserHelper implements DBHelper<User>{
     }
 
     @Override
-    public void getAll(DBGetDataListener<User> dbGetDataListener) {
-
+    public ArrayList<User> getAll(DBGetDataListener<User> dbGetDataListener) {
+        return null;
     }
 
     @Override

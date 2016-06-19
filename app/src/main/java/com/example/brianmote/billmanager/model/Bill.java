@@ -55,7 +55,7 @@ public class Bill {
         return amount;
     }
 
-    public boolean isMonthPaid() {
+    public boolean getMonthPaid() {
         return monthPaid;
     }
 
@@ -83,6 +83,7 @@ public class Bill {
         map.put(Constants.BILL_AMOUNT, amount);
         map.put(Constants.BILL_ID, id);
         map.put(Constants.BILL_CREATED_BY, createdBy);
+        map.put(Constants.BILL_PAID, monthPaid);
         return map;
     }
 }
